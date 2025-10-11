@@ -1,7 +1,17 @@
 from fastapi import FastAPI
-from routes import data  # Ensure this matches your route file name
+from fastapi.middleware.cors import CORSMiddleware
+from routes import data
 
 app = FastAPI()
+
+# CORS middleware to allow requests from Flutter app
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(data.router)
 
